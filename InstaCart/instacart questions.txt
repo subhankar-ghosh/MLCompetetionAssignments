@@ -1,0 +1,15 @@
+Content based filtering
+
+1) What type of products are bought when a user is buying after a month, a week, same day?
+2) What type of products are bought when a user is buying on a particular day of the week?
+3) Which department products are bought together?
+4) Which aisle products are bought together?
+5) When are new products ordered? in the first few orders or new products might be bought in the more recent orders as well?
+6) relation between number of products people buy with order_number? 
+7) Relation between reordered products and days since last oder?
+8) Relation between reordered products FROM LAST ORDER and days since last order?
+9) Relation between number of products bought in latest order and number of products bought in last few(2-3) orders.
+10) Relation between number of products bought to days since last order. 
+
+Ideas
+1) Per day(number of days since last bought) weightage?
