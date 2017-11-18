@@ -1,0 +1,71 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# unpackaging the tar.gz zip folder
+library(png)
+library(abind)
+
+loadImages <- function(filenameList)
+{
+  imgs <- array(dim = c(28, 28, length(filenameList)))
+  i <- 0
+  for(f in filenameList)
+  {
+    i = i + 1
+    try(
+      {
+        imgs[,,i] =  readPNG(f)
+      },
+      silent = TRUE
+    )
+  }
+  return (imgs)
+}
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+```{r}
+#Load images
+filenamesA <- list.files("notMNIST_small/A", pattern = "*.png", full.names = TRUE)
+filenamesA = as.list(filenamesA)
+filenamesB <- list.files("notMNIST_small/B", pattern = "*.png", full.names = TRUE)
+filenamesB = as.list(filenamesB)
+filenamesC <- list.files("notMNIST_small/C", pattern = "*.png", full.names = TRUE)
+filenamesC = as.list(filenamesC)
+filenamesD <- list.files("notMNIST_small/D", pattern = "*.png", full.names = TRUE)
+filenamesD = as.list(filenamesD)
+imgsA <- loadImages(filenamesA)
+imgsB <- loadImages(filenamesB)
+imgsC <- loadImages(filenamesC)
+imgsD <- loadImages(filenamesD)
+
+#prepare labels
+lblA <- rep(1, dim(imgsA)[3])
+lblB <- rep(2, dim(imgsB)[3])
+lblC <- rep(3, dim(imgsC)[3])
+lblD <- rep(4, dim(imgsD)[3])
+
+#Combine arrays of images
+imgstrain <- abind(imgsA, imgsB, imgsC, imgsD, along = 3)
+d<- dim(imgstrain)
+lbl <- c(lblA, lblB, lblC, lblD)
+
+#randomize the images
+set.seed(100)
+z <- sample(d[3])
+imgstrain <- imgstrain[,,z]
+lbl <- lbl[z]
+
+lbl[505]
+image(imgstrain[,,505])
+```
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
