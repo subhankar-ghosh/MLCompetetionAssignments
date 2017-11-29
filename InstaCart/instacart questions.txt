@@ -13,6 +13,7 @@ Content based filtering
 10) Relation between number of products bought to days since last order. 
 
 Ideas
+=======
 Content based filtering
 
 1) What type of products are bought when a user is buying after a month, a week, same day?
